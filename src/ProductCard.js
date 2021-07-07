@@ -1,6 +1,6 @@
 import {Card,Button, Image} from "react-bootstrap"
 
-const ProductCard = ({product,quantity=0,changeQuantityInCart,showRemove=false})=>{
+const ProductCard = ({product,quantity=0,changeQuantityInCart,toggleSaved,showRemove=false,saved})=>{
 
     const addOne = ()=>{
         changeQuantityInCart(product.id,quantity+1)
@@ -16,8 +16,7 @@ const ProductCard = ({product,quantity=0,changeQuantityInCart,showRemove=false})
     }
 
     const removeItem = ()=>{
-        console.log("here")
-        changeQuantityInCart(product.id,null)
+        changeQuantityInCart(product.id,undefined)
     }
 
     return <Card >
@@ -33,7 +32,9 @@ const ProductCard = ({product,quantity=0,changeQuantityInCart,showRemove=false})
        <span class="badge pill text-danger">{quantity}</span>
        <Button size="sm" onClick={addOne}>+</Button></>)
       }
+
       {showRemove ? <Button size="sm" variant="danger" onClick={removeItem} className="ms-2">Remove item</Button> :null}
+       <Button size="sm" onClick={()=>toggleSaved(product.id)} variant={saved?"danger":"success"}>{saved?"Saved":"Save"}</Button> 
     </Card.Body>
   </Card>
 }
